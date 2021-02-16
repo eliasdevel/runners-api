@@ -19,9 +19,31 @@ class TypeRaceSeeder extends Seeder
         $currentTimestamp = Carbon::now();
         $people = [
             [
-                "date"        => "2021-09-07",
+                "distance"        => 3,
+                'created_at' => $currentTimestamp,
+                'updated_at' => $currentTimestamp,
+            ],
+            [
+                "distance"        => 5,
+                'created_at' => $currentTimestamp,
+                'updated_at' => $currentTimestamp,
+            ],
+            [
+                "distance"        => 10,
+                'created_at' => $currentTimestamp,
+                'updated_at' => $currentTimestamp,
+            ],
+            [
+                "distance"        => 21,
+                'created_at' => $currentTimestamp,
+                'updated_at' => $currentTimestamp,
+            ],
+            [
+                "distance"        => 42,
+                'created_at' => $currentTimestamp,
+                'updated_at' => $currentTimestamp,
             ],
         ];
-        DB::table('race')->insert($people);
+        DB::table('type_race')->insert($people);
     }
 }
