@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class TypeRaceSeeder extends Seeder
+class TrajectSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -44,6 +44,6 @@ class TypeRaceSeeder extends Seeder
                 'updated_at' => $currentTimestamp,
             ],
         ];
-        DB::table('type_race')->insert($people);
+        DB::table('traject')->insert($people);
     }
 }

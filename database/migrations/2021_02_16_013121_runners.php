@@ -24,7 +24,7 @@ class Runners extends Migration
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
 
-        Schema::create('type_race', function (Blueprint $table) {
+        Schema::create('traject', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('distance');            
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
@@ -34,18 +34,27 @@ class Runners extends Migration
         Schema::create('race', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date');
-            $table->unsignedInteger('type_id');
-            $table->foreign('type_id')->references('id')->on('type_race');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
 
+        Schema::create('race_traject', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('traject_id');
+            $table->foreign('traject_id')->references('id')->on('traject');
+            $table->unsignedInteger('race_id');
+            $table->foreign('race_id')->references('id')->on('race');
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+        });
+
+
         Schema::create('person_race', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('race_id');
             $table->unsignedInteger('person_id');
+            $table->unsignedInteger('race_traject_id');
             $table->foreign('person_id')->references('id')->on('person');
-            $table->foreign('race_id')->references('id')->on('race');
+            $table->foreign('race_traject_id')->references('id')->on('race_traject');
             //updated when person started the race
             $table->timestamp('start')->nullable()->default(null);
             //updated when person finish the race
@@ -64,7 +73,8 @@ class Runners extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('type_race');
+        Schema::dropIfExists('race_traject');
+        Schema::dropIfExists('traject');
         Schema::dropIfExists('person_race');
         Schema::dropIfExists('race');
         Schema::dropIfExists('person');

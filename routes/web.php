@@ -18,7 +18,7 @@ $router->get('/', function () {
     return 'Hello World';
 });
 
-$default_model_routes = ['person', 'race'];
+$default_model_routes = ['person', 'race', 'traject'];
 
 // default routes 
 foreach ($default_model_routes as $route_name) {
@@ -26,6 +26,10 @@ foreach ($default_model_routes as $route_name) {
 
     $router->get('api/v1/'.$route_name, $model_name.'Controller@index');
     $router->get("api/v1/$route_name/{id}", $model_name.'Controller@show');
+    $router->post("api/v1/$route_name", $model_name.'Controller@create');
+    $router->put("api/v1/$route_name/{id}", $model_name.'Controller@update');
+    $router->delete("api/v1/$route_name/{id}", $model_name.'Controller@destroy');
+    
 }
 
 
